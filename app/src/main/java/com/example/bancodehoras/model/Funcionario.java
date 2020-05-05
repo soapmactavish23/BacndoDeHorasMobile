@@ -8,7 +8,17 @@ public class Funcionario implements Serializable {
 
     private Long id;
     private String nome;
-    private int horas;
+    private String telefone;
+
+    public String getHoras() {
+        return horas;
+    }
+
+    public void setHoras(String horas) {
+        this.horas = horas;
+    }
+
+    private String horas;
 
     public Long getId() {
         return id;
@@ -26,12 +36,11 @@ public class Funcionario implements Serializable {
         this.nome = nome;
     }
 
-    public int getHoras() {
-        return horas;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setHoras(int horas) {
-        this.horas = horas;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
-
 }

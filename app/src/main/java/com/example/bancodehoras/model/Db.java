@@ -28,7 +28,7 @@ public class Db extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS "
                 +TABELA_FUNCIONARIO
-                +" (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR NOT NULL, horas INTEGER NOT NULL)");
+                +" (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR NOT NULL, telefone VARCHAR NOT NULL, horas VARCHAR NOT NULL)");
     }
 
     @Override
@@ -36,10 +36,13 @@ public class Db extends SQLiteOpenHelper {
 
     }
 
-    public void salvarFuncionario(String nome, String horas){
+
+    //Funcionario
+    public void salvarFuncionario(Funcionario funcionario){
         ContentValues cv = new ContentValues();
-        cv.put("nome", nome);
-        cv.put("horas", horas);
+        cv.put("nome", funcionario.getNome());
+        cv.put("telefone", funcionario.getTelefone());
+        cv.put("horas", funcionario.getHoras());
         getWritableDatabase().insert(Db.TABELA_FUNCIONARIO, null , cv);
     }
 
@@ -47,7 +50,7 @@ public class Db extends SQLiteOpenHelper {
 
         List<Funcionario> funcionarios = new ArrayList<>();
 
-        String sql = "SELECT id, nome FROM " + Db.TABELA_FUNCIONARIO + ";";
+        String sql = "SELECT * FROM " + Db.TABELA_FUNCIONARIO + ";";
         Cursor c = getReadableDatabase().rawQuery(sql, null);
 
         while (c.moveToNext()){
@@ -55,10 +58,12 @@ public class Db extends SQLiteOpenHelper {
 
             Long id = c.getLong(c.getColumnIndex("id"));
             String nomeFuncionario = c.getString(c.getColumnIndex("nome"));
-
+            String telefoneFuncionario = c.getString(c.getColumnIndex("telefone"));
+            String horasFuncionario = c.getString(c.getColumnIndex("horas"));
             funcionario.setId(id);
             funcionario.setNome(nomeFuncionario);
-
+            funcionario.setTelefone(telefoneFuncionario);
+            funcionario.setHoras(horasFuncionario);
             funcionarios.add(funcionario);
 
         }
@@ -80,7 +85,8 @@ public class Db extends SQLiteOpenHelper {
     public boolean atualizarFuncionario(Funcionario funcionario){
         ContentValues cv = new ContentValues();
         cv.put("nome", funcionario.getNome());
-        cv.put("horas", Integer.toString(funcionario.getHoras()));
+        cv.put("telefone", funcionario.getTelefone());
+        cv.put("horas", funcionario.getHoras());
         try{
             String[] args = {Long.toString(funcionario.getId())};
             getWritableDatabase().update(Db.TABELA_FUNCIONARIO, cv, "id=?", args);

@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bancodehoras.R;
 import com.example.bancodehoras.model.Funcionario;
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLista = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.lista_funcionario_adapter, parent, false);
+
         return new MyViewHolder(itemLista);
     }
 
@@ -34,6 +37,11 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
 
         Funcionario funcionario = listaFuncionario.get(position);
         holder.funcionario.setText(funcionario.getNome());
+
+        SimpleMaskFormatter simpleMaskFormatter = new SimpleMaskFormatter("+NN (NN) NNNNN-NNNN");
+        MaskTextWatcher maskTelefone = new MaskTextWatcher(holder.telefone, simpleMaskFormatter);
+        holder.telefone.addTextChangedListener(maskTelefone);
+        holder.telefone.setText(funcionario.getTelefone());
 
     }
 
@@ -46,11 +54,14 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView funcionario;
+        TextView telefone;
 
         public MyViewHolder(@NonNull View itemView)
         {
             super(itemView);
             funcionario = itemView.findViewById(R.id.textFuncionario);
+            telefone = itemView.findViewById(R.id.textTelefone);
+
         }
 
     }

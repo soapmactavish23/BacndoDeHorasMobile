@@ -31,23 +31,6 @@
             android:hint="Digite o nome do funcionario" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtHoras"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtHorasEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Digite as horas extras do funcionário"
-            android:inputType="numberSigned" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnNovoFuncionario"
         android:layout_width="wrap_content"
@@ -61,5 +44,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_check_black_24dp"
         tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editCodArea"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="+55"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeLayout" />
+
+    <EditText
+        android:id="@+id/editDdd"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="11"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/editCodArea"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeLayout" />
+
+    <EditText
+        android:id="@+id/txtTelefoneEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="99999-9999"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editDdd"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTelefoneEdit">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtHoras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite as horas diárias do funcionário"
+            android:inputType="numberSigned" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
