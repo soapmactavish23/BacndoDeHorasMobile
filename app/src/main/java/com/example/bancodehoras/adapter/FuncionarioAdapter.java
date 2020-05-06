@@ -60,7 +60,7 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
         {
             super(itemView);
             funcionario = itemView.findViewById(R.id.textFuncionario);
-            telefone = itemView.findViewById(R.id.textTelefone);
+            telefone = itemView.findViewById(R.id.textHoras);
 
         }
 

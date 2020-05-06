@@ -13,8 +13,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bancodehoras.R;
+import com.example.bancodehoras.helper.FuncionarioDAO;
 import com.example.bancodehoras.helper.Permissao;
-import com.example.bancodehoras.model.Db;
+import com.example.bancodehoras.model.BancoHoras;
 import com.example.bancodehoras.model.Funcionario;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
@@ -30,7 +31,7 @@ public class FuncionarioActivity extends AppCompatActivity {
     private TextInputEditText txtHoras;
     private FloatingActionButton btnSalvaFuncionario;
     private Funcionario funcionarioAtual = new Funcionario();
-    private Db db = new Db(FuncionarioActivity.this);
+    //private FuncionarioDAO funcionarioDAO = new FuncionarioDAO(FuncionarioActivity.this);
     private String[] permissaoMensagem = new String[]{
             Manifest.permission.SEND_SMS,
             Manifest.permission.INTERNET
@@ -105,8 +106,10 @@ public class FuncionarioActivity extends AppCompatActivity {
                         funcionario.setTelefone(telefone);
                         funcionario.setHoras(horas);
 
+                        FuncionarioDAO funcionarioDAO = new FuncionarioDAO(getApplicationContext());
+
                         //Atualizar no banco de dados
-                        if(db.atualizarFuncionario(funcionario)){
+                        if(funcionarioDAO.atualizarFuncionario(funcionario)){
                             Toast.makeText(
                                     FuncionarioActivity.this,
                                     "Funcionário Atualizada com Sucesso!",
@@ -131,10 +134,16 @@ public class FuncionarioActivity extends AppCompatActivity {
                         funcionario.setTelefone(telefone);
                         funcionario.setHoras(horas);
 
+                        FuncionarioDAO funcionarioDAO = new FuncionarioDAO(getApplicationContext());
+
                         //Salvar objeto
-                        Db db = new Db(getApplicationContext());
-                        db.salvarFuncionario(funcionario);
+                        funcionarioDAO.salvarFuncionario(funcionario);
                         Toast.makeText(getApplicationContext(), "Funcionário Salvo com sucesso", Toast.LENGTH_SHORT).show();
+
+                        //Salvando o banco de horas
+                        BancoHoras bancoHoras = new BancoHoras();
+                        bancoHoras.setIdfuncionario(funcionario.getId());
+                        bancoHoras.setHoras(0);
 
                         //Enviar SMS
                         String mensagem = "Olá " + nome + ", você acabou de ser cadastrado no Banco de Horas Mobile";

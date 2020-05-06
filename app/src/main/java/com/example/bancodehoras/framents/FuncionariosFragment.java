@@ -21,6 +21,7 @@ import com.example.bancodehoras.R;
 import com.example.bancodehoras.activity.FuncionarioActivity;
 import com.example.bancodehoras.activity.MainActivity;
 import com.example.bancodehoras.adapter.FuncionarioAdapter;
+import com.example.bancodehoras.helper.FuncionarioDAO;
 import com.example.bancodehoras.helper.RecyclerItemClickListener;
 import com.example.bancodehoras.model.Db;
 import com.example.bancodehoras.model.Funcionario;
@@ -81,8 +82,8 @@ public class FuncionariosFragment extends Fragment {
                                 dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Db db = new Db(getContext());
-                                        if(db.deletarFuncionario(funcionarioSelecionado.getId())){
+                                        FuncionarioDAO funcionarioDAO = new FuncionarioDAO(getContext());
+                                        if(funcionarioDAO.deletarFuncionario(funcionarioSelecionado.getId())){
                                             carregarFuncionarios();
                                             Toast.makeText(
                                                     getContext(),
@@ -132,8 +133,8 @@ public class FuncionariosFragment extends Fragment {
         listaFuncionario.clear();
 
         //Listar Funcionarios
-        Db db = new Db(getContext());
-        listaFuncionario = db.listarFuncionario();
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO(getContext());
+        listaFuncionario = funcionarioDAO.listarFuncionario();
 
         //Configuar um adapter
         funcionarioAdapter = new FuncionarioAdapter(listaFuncionario);

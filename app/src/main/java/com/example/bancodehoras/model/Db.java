@@ -17,6 +17,7 @@ public class Db extends SQLiteOpenHelper {
     public static int VERSION = 1;
     public static String NOME_DB = "banco_horas";
     public static String TABELA_FUNCIONARIO = "funcionario";
+    public static String TABELA_BANCO_HORAS = "banco_horas";
     public Context context;
 
     public Db(Context context1) {
@@ -29,76 +30,16 @@ public class Db extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS "
                 +TABELA_FUNCIONARIO
                 +" (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR NOT NULL, telefone VARCHAR NOT NULL, horas VARCHAR NOT NULL)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS "
+                + TABELA_BANCO_HORAS
+                + " (id_banco PRIMARY KEY AUTOINCREMENT, idfuncionario INTEGER NOT NULL, hora_extra Integer NOT NULL)"
+        );
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
-
-
-    //Funcionario
-    public void salvarFuncionario(Funcionario funcionario){
-        ContentValues cv = new ContentValues();
-        cv.put("nome", funcionario.getNome());
-        cv.put("telefone", funcionario.getTelefone());
-        cv.put("horas", funcionario.getHoras());
-        getWritableDatabase().insert(Db.TABELA_FUNCIONARIO, null , cv);
-    }
-
-    public List<Funcionario> listarFuncionario(){
-
-        List<Funcionario> funcionarios = new ArrayList<>();
-
-        String sql = "SELECT * FROM " + Db.TABELA_FUNCIONARIO + ";";
-        Cursor c = getReadableDatabase().rawQuery(sql, null);
-
-        while (c.moveToNext()){
-            Funcionario funcionario = new Funcionario();
-
-            Long id = c.getLong(c.getColumnIndex("id"));
-            String nomeFuncionario = c.getString(c.getColumnIndex("nome"));
-            String telefoneFuncionario = c.getString(c.getColumnIndex("telefone"));
-            String horasFuncionario = c.getString(c.getColumnIndex("horas"));
-            funcionario.setId(id);
-            funcionario.setNome(nomeFuncionario);
-            funcionario.setTelefone(telefoneFuncionario);
-            funcionario.setHoras(horasFuncionario);
-            funcionarios.add(funcionario);
-
-        }
-
-        return funcionarios;
-
-    }
-
-    public boolean deletarFuncionario(Long id){
-        try{
-            String[] args = {Long.toString(id)};
-            getWritableDatabase().delete(Db.TABELA_FUNCIONARIO, "id=?", args);
-        }catch (Exception e){
-            return false;
-        }
-        return true;
-    }
-
-    public boolean atualizarFuncionario(Funcionario funcionario){
-        ContentValues cv = new ContentValues();
-        cv.put("nome", funcionario.getNome());
-        cv.put("telefone", funcionario.getTelefone());
-        cv.put("horas", funcionario.getHoras());
-        try{
-            String[] args = {Long.toString(funcionario.getId())};
-            getWritableDatabase().update(Db.TABELA_FUNCIONARIO, cv, "id=?", args);
-            Log.e("INFO", "Sucesso ao atualizar funcionário");
-
-        }catch (Exception e){
-
-            Log.e("INFO", "Erro ao atualizar funcionário: " + e.getMessage());
-            return false;
-        }
-
-        return true;
 
     }
 

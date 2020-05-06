@@ -9,16 +9,11 @@ public class Funcionario implements Serializable {
     private Long id;
     private String nome;
     private String telefone;
-
-    public String getHoras() {
-        return horas;
-    }
-
-    public void setHoras(String horas) {
-        this.horas = horas;
-    }
-
     private String horas;
+
+    public String getHoras() { return horas; }
+
+    public void setHoras(String horas) { this.horas = horas; }
 
     public Long getId() {
         return id;
