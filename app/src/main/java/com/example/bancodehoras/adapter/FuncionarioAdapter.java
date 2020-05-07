@@ -35,14 +35,19 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        Funcionario funcionario = listaFuncionario.get(position);
-        holder.funcionario.setText(funcionario.getNome());
+        try{
 
-        SimpleMaskFormatter simpleMaskFormatter = new SimpleMaskFormatter("+NN (NN) NNNNN-NNNN");
-        MaskTextWatcher maskTelefone = new MaskTextWatcher(holder.telefone, simpleMaskFormatter);
-        holder.telefone.addTextChangedListener(maskTelefone);
-        holder.telefone.setText(funcionario.getTelefone());
+            Funcionario funcionario = listaFuncionario.get(position);
+            holder.funcionario.setText(funcionario.getNome());
 
+            SimpleMaskFormatter simpleMaskFormatter = new SimpleMaskFormatter("+NN (NN) NNNNN-NNNN");
+            MaskTextWatcher maskTelefone = new MaskTextWatcher(holder.telefone, simpleMaskFormatter);
+            holder.telefone.addTextChangedListener(maskTelefone);
+            holder.telefone.setText(funcionario.getTelefone());
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

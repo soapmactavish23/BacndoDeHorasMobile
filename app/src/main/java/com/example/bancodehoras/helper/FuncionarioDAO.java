@@ -29,7 +29,7 @@ public class FuncionarioDAO implements iFuncionarioDAO {
         ContentValues cv = new ContentValues();
         cv.put("nome", funcionario.getNome());
         cv.put("telefone", funcionario.getTelefone());
-        cv.put("horas", funcionario.getHoras());
+        cv.put("horas", Integer.toString(funcionario.getHoras()));
         escreve.insert(Db.TABELA_FUNCIONARIO, null , cv);
     }
 
@@ -46,11 +46,13 @@ public class FuncionarioDAO implements iFuncionarioDAO {
             Long id = c.getLong(c.getColumnIndex("id"));
             String nomeFuncionario = c.getString(c.getColumnIndex("nome"));
             String telefoneFuncionario = c.getString(c.getColumnIndex("telefone"));
-            String horasFuncionario = c.getString(c.getColumnIndex("horas"));
+            Integer horasFuncionario = c.getInt(c.getColumnIndex("horas"));
+            Integer horasExtras = c.getInt(c.getColumnIndex("horas_extras"));
             funcionario.setId(id);
             funcionario.setNome(nomeFuncionario);
             funcionario.setTelefone(telefoneFuncionario);
             funcionario.setHoras(horasFuncionario);
+            funcionario.setHoras_extras(horasExtras);
             funcionarios.add(funcionario);
 
         }
@@ -74,7 +76,7 @@ public class FuncionarioDAO implements iFuncionarioDAO {
         ContentValues cv = new ContentValues();
         cv.put("nome", funcionario.getNome());
         cv.put("telefone", funcionario.getTelefone());
-        cv.put("horas", funcionario.getHoras());
+        cv.put("horas", Integer.toString(funcionario.getHoras()));
         try{
             String[] args = {Long.toString(funcionario.getId())};
             escreve.update(Db.TABELA_FUNCIONARIO, cv, "id=?", args);
@@ -88,4 +90,25 @@ public class FuncionarioDAO implements iFuncionarioDAO {
 
         return true;
     }
+
+    @Override
+    public boolean atualizarHora(Funcionario funcionario) {
+        ContentValues cv = new ContentValues();
+        cv.put("horas_extras", Integer.toString(funcionario.getHoras_extras()));
+        try {
+
+            String[] args = {Long.toString(funcionario.getId())};
+            escreve.update(Db.TABELA_FUNCIONARIO, cv, "id=?", args);
+            Log.e("INFO", "Sucesso ao atualizar funcionário");
+            return true;
+
+        }catch (Exception e){
+
+            Log.e("INFO", "Erro ao atualizar funcionário" + e.getMessage());
+            return false;
+
+        }
+    }
+
+
 }

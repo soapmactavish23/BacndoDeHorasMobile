@@ -10,5 +10,6 @@ public interface iFuncionarioDAO {
     public List<Funcionario> listarFuncionario();
     public boolean deletarFuncionario(Long id);
     public boolean atualizarFuncionario(Funcionario funcionario);
+    public boolean atualizarHora(Funcionario Funcionario);
 
 }

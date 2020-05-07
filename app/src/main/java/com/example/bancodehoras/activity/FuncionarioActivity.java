@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.example.bancodehoras.R;
 import com.example.bancodehoras.helper.FuncionarioDAO;
 import com.example.bancodehoras.helper.Permissao;
-import com.example.bancodehoras.model.BancoHoras;
 import com.example.bancodehoras.model.Funcionario;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
@@ -31,7 +30,6 @@ public class FuncionarioActivity extends AppCompatActivity {
     private TextInputEditText txtHoras;
     private FloatingActionButton btnSalvaFuncionario;
     private Funcionario funcionarioAtual = new Funcionario();
-    //private FuncionarioDAO funcionarioDAO = new FuncionarioDAO(FuncionarioActivity.this);
     private String[] permissaoMensagem = new String[]{
             Manifest.permission.SEND_SMS,
             Manifest.permission.INTERNET
@@ -77,7 +75,7 @@ public class FuncionarioActivity extends AppCompatActivity {
             txtTelefone.setText(funcionarioAtual.getTelefone().substring(4, 13));
             txtCodArea.setText(funcionarioAtual.getTelefone().substring(0,2));
             txtDdd.setText(funcionarioAtual.getTelefone().substring(2,4));
-            txtHoras.setText(funcionarioAtual.getHoras());
+            txtHoras.setText(funcionarioAtual.getHoras().toString());
         }
 
         //Salvar Funcionario
@@ -104,7 +102,8 @@ public class FuncionarioActivity extends AppCompatActivity {
                         funcionario.setId(funcionarioAtual.getId());
                         funcionario.setNome(nome);
                         funcionario.setTelefone(telefone);
-                        funcionario.setHoras(horas);
+                        funcionario.setHoras(Integer.parseInt(horas));
+                        funcionario.setHoras_extras(funcionario.getHoras_extras());
 
                         FuncionarioDAO funcionarioDAO = new FuncionarioDAO(getApplicationContext());
 
@@ -132,18 +131,14 @@ public class FuncionarioActivity extends AppCompatActivity {
                         Funcionario funcionario = new Funcionario();
                         funcionario.setNome(nome);
                         funcionario.setTelefone(telefone);
-                        funcionario.setHoras(horas);
+                        funcionario.setHoras(Integer.parseInt(horas));
+                        funcionario.setHoras_extras(0);
 
                         FuncionarioDAO funcionarioDAO = new FuncionarioDAO(getApplicationContext());
 
                         //Salvar objeto
                         funcionarioDAO.salvarFuncionario(funcionario);
                         Toast.makeText(getApplicationContext(), "Funcionário Salvo com sucesso", Toast.LENGTH_SHORT).show();
-
-                        //Salvando o banco de horas
-                        BancoHoras bancoHoras = new BancoHoras();
-                        bancoHoras.setIdfuncionario(funcionario.getId());
-                        bancoHoras.setHoras(0);
 
                         //Enviar SMS
                         String mensagem = "Olá " + nome + ", você acabou de ser cadastrado no Banco de Horas Mobile";
@@ -184,17 +179,14 @@ public class FuncionarioActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Permissão Negada");
         builder.setMessage("Para utilizar o app, é necessário aceitar as permissões");
-
         builder.setPositiveButton("CONFIRMAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
         });
-
         builder.create();
         builder.show();
 
     }
-
 }
