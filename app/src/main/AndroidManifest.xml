@@ -13,7 +13,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.BancoHorasActivity"></activity>
+        <activity android:name=".activity.FolgaActivity"></activity>
+        <activity android:name=".activity.BancoHorasActivity" />
         <activity android:name=".activity.FuncionarioActivity" />
         <activity
             android:name=".activity.MainActivity"

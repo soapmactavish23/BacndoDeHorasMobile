@@ -60,6 +60,35 @@ public class FuncionarioDAO implements iFuncionarioDAO {
         return funcionarios;
     }
 
+    public List<Funcionario> listarFolgas() {
+        List<Funcionario> funcionarios = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + Db.TABELA_FUNCIONARIO + " WHERE horas_extras >= horas;";
+        Cursor c = le.rawQuery(sql, null);
+
+        while (c.moveToNext()){
+            Funcionario funcionario = new Funcionario();
+
+            Long id = c.getLong(c.getColumnIndex("id"));
+            String nomeFuncionario = c.getString(c.getColumnIndex("nome"));
+            String telefoneFuncionario = c.getString(c.getColumnIndex("telefone"));
+            Integer horasFuncionario = c.getInt(c.getColumnIndex("horas"));
+            Integer horasExtras = c.getInt(c.getColumnIndex("horas_extras"));
+            String folga = c.getString(c.getColumnIndex("folga"));
+            funcionario.setId(id);
+            funcionario.setNome(nomeFuncionario);
+            funcionario.setTelefone(telefoneFuncionario);
+            funcionario.setHoras(horasFuncionario);
+            Log.e("Erro da folga", folga);
+            funcionario.setHoras_extras(horasExtras);
+            funcionario.setFolga(folga);
+            funcionarios.add(funcionario);
+
+        }
+
+        return funcionarios;
+    }
+
     @Override
     public boolean deletarFuncionario(Long id) {
         try{

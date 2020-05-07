@@ -28,7 +28,7 @@ public class Db extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS "
                 +TABELA_FUNCIONARIO
-                +" (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR NOT NULL, telefone VARCHAR NOT NULL, horas INTEGER NOT NULL, horas_extras INTEGER DEFAULT '0')");
+                +" (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR NOT NULL, telefone VARCHAR NOT NULL, horas INTEGER NOT NULL, horas_extras INTEGER DEFAULT '0', folga VARCHAR DEFAULT '00/00/0000')");
     }
 
     @Override

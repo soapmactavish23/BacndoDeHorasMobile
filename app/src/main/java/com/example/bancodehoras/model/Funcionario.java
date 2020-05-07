@@ -17,7 +17,15 @@ public class Funcionario implements Serializable {
     private String telefone;
     private Integer horas;
     private Integer horas_extras;
+    private String folga;
 
+    public String getFolga() {
+        return folga;
+    }
+
+    public void setFolga(String folga) {
+        this.folga = folga;
+    }
 
     public Integer getHoras_extras() {
         return horas_extras;

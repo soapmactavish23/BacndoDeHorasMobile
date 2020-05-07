@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add("Funcionários", FuncionariosFragment.class)
                 .add("Banco de Horas", BancoHorasFragment.class)
-                .add("Folgas", FolgaFragment.class)
+                //.add("Folgas", FolgaFragment.class)
                 .create());
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
