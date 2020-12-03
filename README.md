@@ -1,4 +1,4 @@
-# Bacndo de Horas Mobile
+# Banco de Horas Mobile
 
 ## Descrição
 Banco de Horas Mobile é um App para Android, com o objetivo de contabilizar as horas dos funcionários, gerar folga, cadastrar esses funcionários, enviar SMS entre outras funcionalidades, a aplicação é toda offline.
